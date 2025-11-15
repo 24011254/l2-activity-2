@@ -1,64 +1,171 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
 
-//A function that returns the header and pizza items
+//App component
 function App() {
-  return (
-    <div className="container">
-      <Header />
-      <Menu />
-      <Footer />
-    </div>
-  );
-}
+  const time = new Date().getHours();
 
-//A function that returns the header
-function Header() {
   return (
-    <header className="header">
-      <h1 style={{ color: "orange", fontSize: "48px", textTransform: "uppercase" }}>Beast's List</h1>
-    </header>
+    <div>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div className="container-fluid">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">About Us</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+            <form className="d-flex" role="search">
+              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+              <button className="btn btn-outline-warning" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <div className="margin">
+        <div className="center">
+          <h1 className="honk">THE BEAST'S LIST</h1>
+          {time >= 10 && time < 22 && <p className="tagline">Authentic Italian Pizza</p>}
+        </div>
+        <div className="center" style={{ marginTop: 48 }}>
+          {pizzaItems}
+          <Footer />
+        </div>
+      </div>
+    </div>
   )
 }
 
-//A function that returns the pizza
-function Pizza({image, name, description, price}) {
+//Pizza Component with Props
+function Pizza({ name, descri, price, img }) {
   return (
-    <div>
-      <img src={image} alt={name} />
-      <p>{name}</p>
-      <p>{description}</p>
+    <div style={{ marginBottom: 32 }}>
+      <p style={{ fontWeight: "bold" }}>{name}</p>
+      <img src={img} alt={name} style={{ width: 300, height: "auto", borderRadius: "50%", boxShadow: "0 0 10px white"}} />
+      <p>{descri}</p>
       <p>${price}</p>
     </div>
   )
 }
 
-function Menu() {
+//Pizza Data in an Array
+const pizzaData = [
+  {
+    name: "Pizza Avocado Chicken",
+    photoName: "/Pizza Images/Avocado Chicken Pizza.png",
+    ingredients: "Bread with avocado, and chicken.",
+    price: "6.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Braised Lamb",
+    photoName: "/Pizza Images/Braised Lamb Pizza.png",
+    ingredients: "Braised lamb",
+    price: "10.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Curry Chicken",
+    photoName: "/Pizza Images/Curry Chicken Pizza.png",
+    ingredients: "Curry chicken",
+    price: "12.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Hot Popcorn Chicken Fries",
+    photoName: "/Pizza Images/Hot Popcorn Chicken Fries Pizza.png",
+    ingredients: "Hot popcorn chicken, and fries",
+    price: "12.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Hot Wagyu",
+    photoName: "/Pizza Images/Hot Wagyu Pizza.png",
+    ingredients: "Hot wagyu",
+    price: "15.00",
+    soldOut: true,
+  },
+  {
+    name: "Pizza Pepper Scramble Egg",
+    photoName: "/Pizza Images/Pepper Scramble Egg Pizza.png",
+    ingredients: "Pepper scramble egg",
+    price: "18.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Shepherd's Pie",
+    photoName: "/Pizza Images/Shepherd's Pie Pizza.png",
+    ingredients: "Shepherd's pie",
+    price: "18.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Smoked Salmon",
+    photoName: "/Pizza Images/Smoked Salmon Pizza.png",
+    ingredients: "Smoked Salmon",
+    price: "18.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Sweet Potato",
+    photoName: "/Pizza Images/Sweet Potato Pizza.png",
+    ingredients: "Sweet potato",
+    price: "18.00",
+    soldOut: false,
+  },
+  {
+    name: "Pizza Teriyaki Chicken",
+    photoName: "/Pizza Images/Teriyaki Chicken Pizza.png",
+    ingredients: "Teriyaki Chicken",
+    price: "18.00",
+    soldOut: false,
+  },
+];
+
+//loopping of pizza
+const pizzaItems = pizzaData.map(pizza => (
+  <Pizza
+    name={pizza.name}
+    descri={pizza.ingredients}
+    price={pizza.price}
+    img={pizza.photoName}
+  />
+));
+
+
+//Footer Component 
+function Footer() {
+  const time = new Date().getHours();
+
+  return (time >= 10 && time < 22 ?
+    <Order />
+    :
+    <p>Sorry, we're closed</p>
+  )
+}
+
+//Order Component
+function Order() {
   return (
-    <div className="menu">
-      <h2>
-        Our Menu
-      </h2>
-      <Pizza image="/Pizza Images/Avocado Chicken Pizza.png" name="Avocado Chicken Pizza" description="Avocado, chicken, and cheese." price="15.00" />
-      <Pizza image="/Pizza Images/Braised Lamb Pizza.png" name="Braised Lamb Pizza" description="Braised Lamb" price="15.00" />
+    <div>
+      <p>We're currently open</p>
+      <button className="button">Order</button>
     </div>
   )
 }
 
-function Footer() {
-  const hour = new Date().getHours(); //Get the current hour
-  const isOpen = hour >= 10 && hour < 22;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />)
 
-  return (
-    <footer className="footer">
-      {isOpen ? "We’re currently open." : "Sorry we’re closed."}
-    </footer>
-  );
-}
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
-
-//Reference: OpenAI. (2025). ChatGPT (GPT-5) [Large language model]. https://chat.openai.com/
+// Reference: OpenAI. (2025). ChatGPT (GPT-5.1) [Large language model]. https://chat.openai.com/
