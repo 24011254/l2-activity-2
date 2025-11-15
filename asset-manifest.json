@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/l2-activity-2/static/css/main.4939f5fb.css",
+    "main.js": "/l2-activity-2/static/js/main.4b5919d0.js",
+    "static/media/bg.png": "/l2-activity-2/static/media/bg.96f4ef2981ca1d766c7b.png",
+    "index.html": "/l2-activity-2/index.html",
+    "main.4939f5fb.css.map": "/l2-activity-2/static/css/main.4939f5fb.css.map",
+    "main.4b5919d0.js.map": "/l2-activity-2/static/js/main.4b5919d0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4939f5fb.css",
+    "static/js/main.4b5919d0.js"
+  ]
+}
